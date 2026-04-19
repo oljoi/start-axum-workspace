@@ -1,0 +1,10 @@
+@import "colors"
+
+.test {
+  h1 {
+    color: $headline-color;
+  }
+  button {
+    background-color: $button-text-color;
+  }
+}

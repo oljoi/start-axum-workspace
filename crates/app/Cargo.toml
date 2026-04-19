@@ -1,7 +1,8 @@
 [package]
 name = "app"
 version = "0.1.0"
-edition = "2021"
+edition.workspace = true
+license.workspace = true
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -14,9 +15,24 @@ leptos_axum = { workspace = true, optional = true }
 http.workspace = true
 cfg-if.workspace = true
 thiserror.workspace = true
+turf.workspace = true
 
 [features]
 default = []
 hydrate = ["leptos/hydrate"]
 ssr = ["leptos/ssr", "leptos_meta/ssr", "leptos_router/ssr", "dep:leptos_axum"]
 
+[package.metadata.turf]
+load_paths = ["style/shared"]
+minify = true
+browser_targets = [
+    "firefox 65",
+    "chrome 80",
+    "safari 10",
+]
+
+[package.metadata.turf.class_names]
+template = "{{crate_name}}_<name_hash_short>_<style_sheet_hash_short>"
+
+[package.metadata.turf.file_output]
+global_css_file_path = "crates/app/style/out.css"

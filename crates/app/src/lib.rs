@@ -1,9 +1,12 @@
 use leptos::prelude::*;
-use leptos_meta::{provide_meta_context, MetaTags, Stylesheet, Title};
+use leptos_meta::{provide_meta_context, MetaTags, Stylesheet, Title, Style};
 use leptos_router::{
     components::{Route, Router, Routes},
     StaticSegment,
 };
+
+pub mod home;
+use home::HomePage;
 
 pub fn shell(options: LeptosOptions) -> impl IntoView {
     view! {
@@ -23,8 +26,11 @@ pub fn shell(options: LeptosOptions) -> impl IntoView {
     }
 }
 
+turf::style_sheet!("style/main.scss");
+
 #[component]
 pub fn App() -> impl IntoView {
+
     // Provides context that manages stylesheets, titles, meta tags, etc.
     provide_meta_context();
 
@@ -38,22 +44,9 @@ pub fn App() -> impl IntoView {
         <Router>
             <main>
                 <Routes fallback=|| "Page not found.".into_view()>
-                    <Route path=StaticSegment("") view=HomePage/>
+                    <Route path=StaticSegment("") view=home::HomePage/>
                 </Routes>
             </main>
         </Router>
-    }
-}
-
-/// Renders the home page of your application.
-#[component]
-fn HomePage() -> impl IntoView {
-    // Creates a reactive value to update the button
-    let count = RwSignal::new(0);
-    let on_click = move |_| *count.write() += 1;
-
-    view! {
-        <h1>"Welcome to Leptos!"</h1>
-        <button on:click=on_click>"Click Me: " {count}</button>
     }
 }
